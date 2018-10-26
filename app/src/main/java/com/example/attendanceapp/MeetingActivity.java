@@ -1,5 +1,6 @@
 package com.example.attendanceapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class MeetingActivity extends AppCompatActivity {
     //private String[] testArray;
-    public static final List<MeetingDetailModel> Meetings = new ArrayList<MeetingDetailModel>();
+    public final List<MeetingDetailModel> Meetings = new ArrayList<MeetingDetailModel>();
     public int meetingNumber;
 
     @Override
@@ -35,21 +36,66 @@ public class MeetingActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        toolbar.setTitle("Meetings");
 
         if(Meetings.size() == 0) {
 
-            MeetingDetailModel test = new MeetingDetailModel("Day 1", "This is Day1");
+            MeetingDetailModel test = new MeetingDetailModel("Day 1", "Twas a great day", "This is Day1");
             Meetings.add(test);
-            test = new MeetingDetailModel("Day 15", "This is Day2");
+            test = new MeetingDetailModel("Day 15", "Pumpkin day", "This is Day2");
             Meetings.add(test);
-            test = new MeetingDetailModel("Day 29", "This is Day3");
+            test = new MeetingDetailModel("Day 29", "Safety Briefing 6", "This is Day3");
             Meetings.add(test);
         }
 
-        View recyclerView = findViewById(R.id.movie_list);
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                MeetingDetailModel newMeeting = new MeetingDetailModel("","","");
+                Meetings.add(newMeeting);
+
+                Snackbar.make(view, "Loading new meeting #" + Integer.toString(Meetings.size()), Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+
+                Context context = view.getContext();
+                Intent intent = new Intent(context, MeetingDetailActivity.class);
+
+                //intent.putExtra("INDEX", Meetings.size()-1);
+                intent.putExtra("NAME", Meetings.get(Meetings.size()-1).getName());
+                intent.putExtra("DESCRIPTION", Meetings.get(Meetings.size()-1).getDescription());
+                intent.putExtra("NOTES", Meetings.get(Meetings.size()-1).getNotes());
+
+                context.startActivity(intent);
+            }
+        });
+
+
+        View recyclerView = findViewById(R.id.meeting_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        View recyclerView = findViewById(R.id.meeting_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+
+    public void setMeetingsName(int index, String s){
+        Meetings.get(index).setName(s);
+    }
+    public void setMeetingsDescription(int index, String s){
+        Meetings.get(index).setDescription(s);
+    }
+    public void setMeetingsNotes(int index, String s){
+        Meetings.get(index).setNotes(s);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -77,7 +123,12 @@ public class MeetingActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             meetingNumber = position;
-            holder.mIdView.setText(mValues.get(position).getName());
+            if(!mValues.get(position).getName().equals("")) {
+                holder.mIdView.setText(mValues.get(position).getName());
+            }else{
+                holder.mIdView.setText("New Meeting");
+            }
+
             //holder.mContentView.setText(mValues.get(position).getMovieYear());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +137,8 @@ public class MeetingActivity extends AppCompatActivity {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, MeetingDetailActivity.class);
                     intent.putExtra("NAME", holder.mItem.getName());
+                    intent.putExtra("DESCRIPTION", holder.mItem.getDescription());
+                    intent.putExtra("NOTES", holder.mItem.getNotes());
 
                     context.startActivity(intent);
                     //startActivity(new Intent(MeetingActivity.this, MeetingDetailActivity.class));
@@ -95,9 +148,6 @@ public class MeetingActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            // CS315: DO THIS
-            // TODO: BUG FIX - Figure out why our movie list gets re-added every time we come back to this Activity
-            // TODO: it could be in THIS class, OR in the DumbMovieContent class, or maybe even somewhere else?
             return mValues.size();
         }
 

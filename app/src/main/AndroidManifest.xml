@@ -19,14 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MeetingDetailModel"></activity>
+        <activity android:name=".MeetingDetailActivity"></activity>
         <activity
-            android:name=".MeetingDetailModel"
-            >
-        </activity>
-        <activity
-            android:name=".MeetingDetailActivity"
-            >
-        </activity>
+            android:name=".MediaActivity"
+            android:label="@string/title_activity_media"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

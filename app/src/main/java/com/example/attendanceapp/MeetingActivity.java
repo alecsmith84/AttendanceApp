@@ -23,6 +23,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+
+
 
 public class MeetingActivity extends AppCompatActivity {
     //private String[] testArray;
@@ -38,6 +41,7 @@ public class MeetingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Meetings");
 
+
         if(Meetings.size() == 0) {
 
             MeetingDetailModel test = new MeetingDetailModel("Day 1", "Twas a great day", "This is Day1");
@@ -52,6 +56,7 @@ public class MeetingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 MeetingDetailModel newMeeting = new MeetingDetailModel("","","");
                 Meetings.add(newMeeting);
@@ -134,6 +139,10 @@ public class MeetingActivity extends AppCompatActivity {
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Snackbar.make(v, "Loading Meeting...", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+
                     Context context = v.getContext();
                     Intent intent = new Intent(context, MeetingDetailActivity.class);
                     intent.putExtra("NAME", holder.mItem.getName());

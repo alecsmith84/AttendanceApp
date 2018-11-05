@@ -19,6 +19,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Schedule"
+            android:label="@string/title_activity_schedule"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Lessons"
+            android:label="@string/title_activity_lessons"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".People"
+            android:label="@string/title_activity_people"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".schedule_today"
+            android:label="@string/title_activity_schedule_today"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

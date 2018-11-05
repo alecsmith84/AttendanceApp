@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.attendanceapp">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,19 +17,31 @@
         <activity
             android:name=".MeetingActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MeetingDetailModel" />
+        <activity android:name=".MeetingDetailActivity" />
+        <activity android:name=".MediaActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- android:label="@string/title_activity_media" -->
+            <!-- android:theme="@style/AppTheme.NoActionBar"> -->
+
         </activity>
-        <activity android:name=".MeetingDetailModel"></activity>
-        <activity android:name=".MeetingDetailActivity"></activity>
-        <activity
-            android:name=".MediaActivity"
-            android:label="@string/title_activity_media"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.attendanceapp.fileprovider"
+            android:enabled="true"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".lessonList">
+        </activity>
+        <activity android:name=".populateLessonForm">
+        </activity>
     </application>
 
 </manifest>

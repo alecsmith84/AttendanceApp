@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,6 +41,10 @@ public class lessonList extends AppCompatActivity {
         updateCounterFile();
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.lesson_object, null);
+
+        TextView topText = findViewById(R.id.nothingHereText);
+        topText.setText("");
+
 
         view.setId(lessonCounter);
         final Intent intent = new Intent(this, MediaActivity.class);

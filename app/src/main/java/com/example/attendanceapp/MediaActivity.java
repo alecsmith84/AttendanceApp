@@ -35,7 +35,7 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
 public class MediaActivity extends AppCompatActivity {
 
 
-    Button btnTakePhoto;
+//    Button btnTakePhoto;
     ImageView imageView;
     String pathToFile;
     TextView textbox = null;
@@ -56,8 +56,8 @@ public class MediaActivity extends AppCompatActivity {
         updateCounterValueFromFile();
 
 //        setSupportActionBar(toolbar);
-        btnTakePhoto = findViewById(R.id.btnTakePic);
-//        if (Build.VERSION.SDK_INT >= 23){
+//        btnTakePhoto = findViewById(R.id.btnTakePic);
+//        if (Build.VERSION.SDK_INT >= 23){s
 //            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
 //        }
         imageView = findViewById(R.id.imageView);
@@ -75,12 +75,12 @@ public class MediaActivity extends AppCompatActivity {
 
 
         //--In charge of what happens when the button is clicked,----
-        btnTakePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                dispatchPictureAction();
-            }
-        });
+//        btnTakePhoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                dispatchPictureAction();
+//            }
+//        });
 
     }
 

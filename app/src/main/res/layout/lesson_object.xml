@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/defaultLessonObjId"
+    android:layout_width="300dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:background="@drawable/button_selector"
+    android:elevation="12dp"
+    android:fontFamily="sans-serif"
+    android:text="Lesson"
+    android:textAlignment="viewStart"
+    android:textAllCaps="false"
+    android:textSize="18sp"
+    android:typeface="normal"
+    android:visibility="visible">
+
+
+</Button>

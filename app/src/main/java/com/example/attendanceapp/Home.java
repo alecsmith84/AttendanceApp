@@ -19,7 +19,8 @@ public class Home extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //this is totally not Alec
+        //this is a test
+        //TROY WAS HERE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -82,7 +83,7 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Intent schedule = new Intent(Home.this, Schedule.class);
+        Intent schedule = new Intent(Home.this, MeetingActivity.class);
         Intent lessons = new Intent(Home.this, Lessons.class);
         Intent people = new Intent(Home.this, People.class);
 

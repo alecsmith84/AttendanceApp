@@ -64,9 +64,20 @@
             android:label="@string/title_activity_schedule_today"
             android:parentActivityName=".Schedule"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Schedule"/>
+        </activity>
+        <activity
+            android:name=".MeetingDetailModel"
+            >
+        </activity>
+        <activity
+            android:name=".MeetingDetailActivity"
+            >
+        </activity>
+        <activity android:name=".MyDB">
+        </activity>
+        <activity android:name=".ListData">
+        </activity>
+        <activity android:name=".EditData">
         </activity>
     </application>
 

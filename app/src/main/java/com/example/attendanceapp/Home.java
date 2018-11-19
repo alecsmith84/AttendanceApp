@@ -77,7 +77,7 @@ public class Home extends AppCompatActivity
         // change the .class to whatever the actual java file is named
         Intent schedule = new Intent(Home.this, MeetingActivity.class);
         Intent lessons = new Intent(Home.this, Lessons.class);
-        Intent people = new Intent(Home.this, People.class);
+        //Intent people = new Intent(Home.this, MyDB.class);
 
         // need to change the R.id.~ to the correct icons
         if (id == R.id.nav_camera) {
@@ -85,7 +85,7 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             startActivity(lessons);
         } else if (id == R.id.nav_slideshow) {
-            startActivity(people);
+            //startActivity(people);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

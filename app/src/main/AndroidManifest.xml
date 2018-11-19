@@ -23,12 +23,37 @@
             android:name=".Schedule"
             android:label="@string/title_activity_schedule"
             android:parentActivityName=".Home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
+        <activity
+            android:name=".MeetingActivity"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
+
+        <activity
+            android:name=".MeetingDetailActivity"
+            android:parentActivityName=".MeetingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MeetingActivity" />
+        </activity>
         <activity
             android:name=".Lessons"
             android:label="@string/title_activity_lessons"
             android:parentActivityName=".Home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
         <activity
             android:name=".People"
             android:label="@string/title_activity_people"
@@ -37,7 +62,12 @@
         <activity
             android:name=".schedule_today"
             android:label="@string/title_activity_schedule_today"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".Schedule"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Schedule"/>
+        </activity>
     </application>
 
 </manifest>

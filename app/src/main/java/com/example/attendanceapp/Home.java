@@ -1,5 +1,6 @@
 package com.example.attendanceapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,20 +19,21 @@ public class Home extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //this is totally not Alec
+        //this is a test
+        //TROY WAS HERE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,22 +83,24 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Intent schedule = new Intent(Home.this, MeetingActivity.class);
+        Intent lessons = new Intent(Home.this, Lessons.class);
+        Intent people = new Intent(Home.this, MyDB.class);
+
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            startActivity(schedule);
         } else if (id == R.id.nav_gallery) {
-
+            startActivity(lessons);
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            startActivity(people);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void todayview(View v){
+        startActivity(new Intent(Home.this, schedule_today.class));
     }
 }

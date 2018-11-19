@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -43,11 +44,17 @@ public class MediaActivity extends AppCompatActivity {
     private static final String FILE_NAME = "example.txt";
     private static final String COUNTER_FILE_NAME = "counterexample.txt";
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+
+
         textbox = findViewById(R.id.lessonSummary);
 
         resolvedCounterValue = getIntent().getStringExtra("counterValue");
@@ -81,6 +88,7 @@ public class MediaActivity extends AppCompatActivity {
 ////                dispatchPictureAction();
 //            }
 //        });
+
 
     }
 

@@ -83,10 +83,12 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Intent schedule = new Intent(Home.this, Schedule.class);
+        // change the .class to whatever the actual java file is named
+        Intent schedule = new Intent(Home.this, MeetingActivity.class);
         Intent lessons = new Intent(Home.this, Lessons.class);
         Intent people = new Intent(Home.this, People.class);
 
+        // need to change the R.id.~ to the correct icons
         if (id == R.id.nav_camera) {
             startActivity(schedule);
         } else if (id == R.id.nav_gallery) {

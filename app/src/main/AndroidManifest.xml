@@ -38,23 +38,23 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".lessonList">
-
-        </activity>
-        <activity android:name=".populateLessonForm"></activity>
+        <activity android:name=".lessonList"></activity>
+        <activity android:name=".populateLessonForm" />
         <activity
             android:name=".realLessonActivity"
             android:label="@string/title_activity_real_lesson"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
+        <activity
+            android:name=".DoggoFullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_doggo_fullscreen"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

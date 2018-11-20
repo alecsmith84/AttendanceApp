@@ -1,5 +1,6 @@
 package com.example.kolepeoples.camerastuff;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,14 +29,16 @@ public class CameraActivity extends AppCompatActivity {
     Button btnTakePic;
     ImageView myImage;
     String pathToFile;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_activity_main);
         btnTakePic = findViewById(R.id.takePic);
         if(Build.VERSION.SDK_INT >= 23) {
-            requestPermissions(new String[]{"Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE"}, 2);
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
         }
 
 
@@ -48,8 +51,25 @@ public class CameraActivity extends AppCompatActivity {
         myImage = findViewById(R.id.image);
     }
 
+
+    private void dispatchPictureTakerAction() {
+        Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePic.resolveActivity(getPackageManager()) != null) {
+           File photoFile = null;
+            photoFile = createPhotoFIle();
+
+            if(photoFile != null) {
+                pathToFile = photoFile.getAbsolutePath();
+                Uri photoUri = FileProvider.getUriForFile(CameraActivity.this, "com.example.android.fileprovider", photoFile);
+                takePic.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takePic, 1);
+            }
+
+        }
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
@@ -59,21 +79,6 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
-    private void dispatchPictureTakerAction() {
-        Intent takePic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePic.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            photoFile = createPhotoFIle();
-
-            if(photoFile != null) {
-                pathToFile = photoFile.getAbsolutePath();
-                Uri photoUri = FileProvider.getUriForFile(CameraActivity.this, "com.thecodecity.cameraandroid.fileprovider", photoFile);
-                takePic.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(takePic, 1);
-            }
-
-        }
-    }
 
     private File createPhotoFIle() {
         String name = new SimpleDateFormat("yyyymmdd_HHmmss").format(new Date());
@@ -82,7 +87,7 @@ public class CameraActivity extends AppCompatActivity {
         try {
             return File.createTempFile(name,".jpg", stroageDir);
         } catch (IOException e) {
-            Log.d("myLog", "Excep : " + e.toString());
+            Log.d("mylog", "Excep : " + e.toString());
         }
         return image;
     }

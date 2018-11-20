@@ -19,4 +19,5 @@ public class Person {
     }
     public boolean isHere;
     public String name;
+    public int ID;
 }

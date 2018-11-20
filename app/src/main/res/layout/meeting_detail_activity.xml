@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -27,14 +28,16 @@
         android:layout_width="321dp"
         android:layout_height="61dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="24dp"
         android:ellipsize="end"
         android:hint="Enter a meeting name..."
         android:text=""
         android:textColorHint="@color/grey"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,12 +53,15 @@
         android:textColorHint="@color/grey"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
         android:id="@+id/notes"
         android:layout_width="328dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="147dp"
         android:layout_marginBottom="50dp"
         android:layout_marginEnd="10dp"
@@ -68,6 +74,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="162dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
@@ -86,6 +98,7 @@
 
         <include
             layout="@layout/person_list"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="210dp" />

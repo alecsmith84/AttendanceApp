@@ -47,19 +47,6 @@ public class MeetingDetailActivity extends AppCompatActivity {
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        mDatabaseHelper = new DatabaseHelper(this);
-
-        Cursor people = mDatabaseHelper.getData();
-        //Cursor attendance = mDatabaseHelper.getData3();
-
-        while(people.moveToNext()){
-            Cursor temp = mDatabaseHelper.getAbsense(people.getInt(0),Integer.parseInt(m_ID));
-            while(temp.moveToNext()) {
-                People.add(new Person(people.getString(1), temp.getInt(2)));
-            }
-        }
-
-        toastMessage("TEST");
 
 
         final EditText name = findViewById(R.id.name);
@@ -74,7 +61,29 @@ public class MeetingDetailActivity extends AppCompatActivity {
             description.setText(extras.getString("DESCRIPTION"));
             notes.setText(extras.getString("NOTES"));
             m_ID = extras.getString("ID");
-            toastMessage(m_ID);
+
+            //People.add(new Person("Test Guy", 1));
+            mDatabaseHelper = new DatabaseHelper(this);
+
+            Cursor people = mDatabaseHelper.getData();
+            while(people.moveToNext()){
+                Cursor temp = mDatabaseHelper.getAbsense(people.getInt(0),Integer.parseInt(m_ID));
+                if(!temp.moveToNext()){
+                    mDatabaseHelper.addData3(Integer.parseInt(m_ID), people.getInt(0), 0);
+                    //toastMessage("EZ");
+                }
+
+                temp = mDatabaseHelper.getAbsense(people.getInt(0),Integer.parseInt(m_ID));
+                if(temp.moveToNext())
+                {
+                    Person guy = new Person(people.getString(1), temp.getInt(2));
+                    guy.ID = temp.getInt(0);
+                    People.add(guy);
+                }
+
+
+            }
+
         }
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -162,7 +171,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
             String temp;
             if(mValues.get(position).isHere){
                 temp = "is here";
-            }else{
+            }else {
                 temp = "is not here";
             }
             if(!mValues.get(position).name.equals("")) {
@@ -176,16 +185,22 @@ public class MeetingDetailActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mValues.get(position).isHere = !mValues.get(position).isHere;
                     String temp;
+                    int present;
                     if(mValues.get(position).isHere){
                         temp = "is here";
+                        present = 1;
                     }else {
                         temp = "is not here";
+                        present = 0;
                     }
                     if(!mValues.get(position).name.equals("")) {
                         holder.mIdView.setText(mValues.get(position).name + " : " + temp);
                     }else{
                         holder.mIdView.setText("New Person" + " : " + temp);
                     }
+                    Person man = holder.mItem;
+
+                    mDatabaseHelper.updateData3(Integer.parseInt(m_ID), man.ID, present);
                 }
             });
 

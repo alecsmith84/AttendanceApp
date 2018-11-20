@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createTable = "CREATE TABLE " + TABLE_NAME2 + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, DESCRIPTION TEXT, NOTES TEXT)";
         db.execSQL(createTable);
 
-        createTable = "CREATE TABLE " + TABLE_NAME3 + " (meeting_ID INTEGER, person_ID INTEGER, isPresent INTEGER)";
+        createTable = "CREATE TABLE " + TABLE_NAME3 + " (meeting_ID INTEGER, person_ID INTEGER, isPresent INTEGER DEFAULT 0)";
         db.execSQL(createTable);
     }
 
@@ -80,6 +80,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return data.getString(0);
     }
+
+    public Boolean addData3(int item1, int item2, int item3) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("meeting_ID", item1);
+        contentValues.put("person_ID", item2);
+        contentValues.put("isPresent", item3);
+
+        Log.d(TAG, "addData: Adding " + item1 + ", " + item2 + ", " + item3 +" to " + TABLE_NAME2);
+
+        long result = db.insert(TABLE_NAME3, null, contentValues);
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     //(ID INTEGER PRIMARY KEY AUTOINCREMENT, TITLE TEXT, DESCRIPTION TEXT, NOTES TEXT)";
     public void updateData2(String item1, String item2, String item3, int m_id){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -88,6 +106,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         query = "UPDATE " + TABLE_NAME2 + " SET DESCRIPTION = '" + item2 + "' WHERE ID = " + m_id;
         db.execSQL(query);
         query = "UPDATE " + TABLE_NAME2 + " SET NOTES = '" + item3 + "' WHERE ID = " + m_id;
+        db.execSQL(query);
+    }
+    public void updateData3(int item1, int item2, int item3){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_NAME3 + " SET isPresent = " + item3 + " WHERE person_ID = " + item2 + " AND meeting_ID = " + item1;
         db.execSQL(query);
     }
 
@@ -113,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAbsense(int p_id, int m_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME3 + " WHERE " + p_id + " = person_ID AND " + m_id + " = meeting_ID";
+        String query = "SELECT * FROM " + TABLE_NAME3 + " WHERE person_ID = " + p_id + " AND meeting_ID = " + m_id;
         Cursor data = db.rawQuery(query, null);
         return data;
     }

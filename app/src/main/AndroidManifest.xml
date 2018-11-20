@@ -69,15 +69,23 @@
             android:name=".MeetingDetailModel"
             >
         </activity>
+
+        <activity android:name=".ListData"
+            android:parentActivityName=".MyDB">
+        </activity>
+        <activity android:name=".EditData"
+            android:parentActivityName=".ListData">
+        </activity>
+
+
         <activity
-            android:name=".MeetingDetailActivity"
-            >
-        </activity>
-        <activity android:name=".MyDB">
-        </activity>
-        <activity android:name=".ListData">
-        </activity>
-        <activity android:name=".EditData">
+            android:name=".MyDB"
+            android:parentActivityName=".Home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

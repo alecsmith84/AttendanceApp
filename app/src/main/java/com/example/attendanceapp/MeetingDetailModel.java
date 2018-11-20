@@ -7,12 +7,14 @@ public class MeetingDetailModel {
     private String description;
     private String notes;
     private String date;
+    private String ID;
 
-    public MeetingDetailModel(String n1, String n2, String n3){
+    public MeetingDetailModel(String n1, String n2, String n3, String id){
         setName(n1);
         setDescription(n2);
         setNotes(n3);
         setDateToToday();
+        setID(id);
     }
 
     public void setName(String n){
@@ -33,6 +35,8 @@ public class MeetingDetailModel {
     }
     public void setDate(String n) { date = n; }
     public String getDate() { return date; }
+    public void setID(String id){ID = id;}
+    public String getID(){return ID;}
     public void setDateToToday(){
         Calendar calendar = Calendar.getInstance();
         int thisYear = calendar.get(Calendar.YEAR);

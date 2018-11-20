@@ -19,11 +19,11 @@ public class Home extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -70,7 +70,7 @@ public class Home extends AppCompatActivity
 
         // change the .class to whatever the actual java file is named
         Intent schedule = new Intent(Home.this, MeetingActivity.class);
-        Intent lessons = new Intent(Home.this, Lessons.class);
+        Intent lessons = new Intent(Home.this, realLessonActivity.class);
         Intent people = new Intent(Home.this, MyDB.class);
 
         // need to change the R.id.~ to the correct icons
@@ -87,7 +87,5 @@ public class Home extends AppCompatActivity
         return true;
     }
 
-    public void todayview(View v){
-        startActivity(new Intent(Home.this, schedule_today.class));
-    }
+
 }

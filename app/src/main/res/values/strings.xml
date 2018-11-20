@@ -6,6 +6,13 @@
     <string name="nav_header_subtitle"></string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="default_meetingDetailString">MeetingDetailString</string>
+    <string name="title_activity_media">MediaActivity</string>
+    <string name="title_activity_real_lesson">realLessonActivity</string>
+
+    <string name="title_activity_doggo_fullscreen">DoggoFullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_schedule">Schedule</string>
     <string name="title_activity_lessons">Lessons</string>
     <string name="title_activity_people">People</string>

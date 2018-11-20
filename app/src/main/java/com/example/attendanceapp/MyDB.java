@@ -1,12 +1,8 @@
 package com.example.attendanceapp;
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,12 +25,15 @@ public class MyDB extends AppCompatActivity {
         btnViewData = (Button) findViewById(R.id.btnView);
         mDatabaseHelper = new DatabaseHelper(this);
 
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newEntry = editText.getText().toString();
-                if (editText.length() != 0) {
+                if (newEntry.length() != 0) {
+                    //ensure the database doesn't break depending on what is listed here
+                    newEntry = newEntry.replace('\'','*');
+                    newEntry = newEntry.replace('\"','*');
+
                     AddData(newEntry);
                     editText.setText("");
                 } else {
@@ -51,7 +50,6 @@ public class MyDB extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 

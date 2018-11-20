@@ -67,7 +67,7 @@ public class ListData extends AppCompatActivity {
 
                 Cursor data = mDatabaseHelper.getItemID(name); //get the id associated with that name
                 int itemID = -1;
-                while(data.moveToNext()){
+               while(data.moveToNext()){
                     itemID = data.getInt(0);
                 }
                 if(itemID > -1){
@@ -84,6 +84,15 @@ public class ListData extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mListView = (ListView) findViewById(R.id.listView);
+        mDatabaseHelper = new DatabaseHelper(this);
+
+        populateListView();
+    }
 
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();

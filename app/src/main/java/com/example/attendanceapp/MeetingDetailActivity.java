@@ -2,12 +2,15 @@ package com.example.attendanceapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +28,8 @@ import com.example.attendanceapp.Person;
 public class MeetingDetailActivity extends AppCompatActivity {
 
     public final List<Person> People = new ArrayList<Person>();
-
+    private String m_ID;
+    DatabaseHelper mDatabaseHelper;
     //@Override
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +47,20 @@ public class MeetingDetailActivity extends AppCompatActivity {
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        People.add(new Person("Thomas"));
-        People.add(new Person("Adam"));
-        People.add(new Person("Daniel"));
-        People.add(new Person("Will"));
-        People.add(new Person("Timothy"));
-        People.add(new Person("Nate"));
-        People.add(new Person("Aaron"));
+        mDatabaseHelper = new DatabaseHelper(this);
+
+        Cursor people = mDatabaseHelper.getData();
+        //Cursor attendance = mDatabaseHelper.getData3();
+
+        while(people.moveToNext()){
+            Cursor temp = mDatabaseHelper.getAbsense(people.getInt(0),Integer.parseInt(m_ID));
+            while(temp.moveToNext()) {
+                People.add(new Person(people.getString(1), temp.getInt(2)));
+            }
+        }
+
+        toastMessage("TEST");
+
 
         final EditText name = findViewById(R.id.name);
         final EditText description = findViewById((R.id.description));
@@ -61,6 +73,8 @@ public class MeetingDetailActivity extends AppCompatActivity {
             name.setText(extras.getString("NAME"));
             description.setText(extras.getString("DESCRIPTION"));
             notes.setText(extras.getString("NOTES"));
+            m_ID = extras.getString("ID");
+            toastMessage(m_ID);
         }
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -75,14 +89,48 @@ public class MeetingDetailActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    meetingMain.setMeetingsName(arrayIndex, name.getText().toString());
+                    mDatabaseHelper.updateData2(name.getText().toString(),description.getText().toString(),notes.getText().toString(),ID);
+
+                    toastMessage("How dare you?");
 
                     return true;
                 }
+                toastMessage("Possible Hit");
                 return false;
+
             }
         });*/
-    }
+        EditText editName = (EditText) findViewById(R.id.name);
+        editName.addTextChangedListener(filterTextWatcher);
+        EditText editDescription = (EditText) findViewById(R.id.description);
+        editDescription.addTextChangedListener(filterTextWatcher);
+        EditText editNotes = (EditText) findViewById(R.id.notes);
+        editNotes.addTextChangedListener(filterTextWatcher);
+
+
+        };
+
+        private TextWatcher filterTextWatcher = new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // DO THE CALCULATIONS HERE AND SHOW THE RESULT AS PER YOUR CALCULATIONS
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                final EditText name = findViewById(R.id.name);
+                final EditText description = findViewById((R.id.description));
+                final EditText notes = findViewById(R.id.notes);
+                mDatabaseHelper.updateData2(name.getText().toString(),description.getText().toString(),notes.getText().toString(),Integer.parseInt(m_ID));
+                toastMessage("UPDATED DATABASE");
+            }
+        };
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         //movieMaker.createMovieMagic();
@@ -150,6 +198,8 @@ public class MeetingDetailActivity extends AppCompatActivity {
 
         }
 
+
+
         @Override
         public int getItemCount() {
             return mValues.size();
@@ -173,6 +223,9 @@ public class MeetingDetailActivity extends AppCompatActivity {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
         }
+    }
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
     //public void setActivityReference(MeetingActivity m){
     //    meetingMain = m;

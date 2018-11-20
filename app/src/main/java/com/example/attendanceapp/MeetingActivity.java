@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.database.Cursor;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class MeetingActivity extends AppCompatActivity {
     //private String[] testArray;
     public final List<MeetingDetailModel> Meetings = new ArrayList<MeetingDetailModel>();
     public int meetingNumber;
+    DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,23 +50,26 @@ public class MeetingActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if(Meetings.size() == 0) {
+        Meetings.clear();
+        mDatabaseHelper = new DatabaseHelper(this);
 
-            MeetingDetailModel test = new MeetingDetailModel("Day 1", "Twas a great day", "This is Day1");
-            Meetings.add(test);
-            test = new MeetingDetailModel("Day 15", "Pumpkin day", "This is Day2");
-            Meetings.add(test);
-            test = new MeetingDetailModel("Day 29", "Safety Briefing 6", "This is Day3");
-            Meetings.add(test);
+        Cursor data = mDatabaseHelper.getData2();
+
+        while(data.moveToNext()){
+            String temp = Integer.toString(data.getInt(0));
+            MeetingDetailModel bigData = new MeetingDetailModel(data.getString(1),data.getString(2),data.getString(3),temp);
+            Meetings.add(bigData);
         }
+
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                String insertData = mDatabaseHelper.addData2("","","");
 
-                MeetingDetailModel newMeeting = new MeetingDetailModel("","","");
+                MeetingDetailModel newMeeting = new MeetingDetailModel("","","",insertData);
                 Meetings.add(newMeeting);
 
                 Snackbar.make(view, "Loading new meeting #" + Integer.toString(Meetings.size()), Snackbar.LENGTH_SHORT)
@@ -76,7 +82,8 @@ public class MeetingActivity extends AppCompatActivity {
                 intent.putExtra("NAME", Meetings.get(Meetings.size()-1).getName());
                 intent.putExtra("DESCRIPTION", Meetings.get(Meetings.size()-1).getDescription());
                 intent.putExtra("NOTES", Meetings.get(Meetings.size()-1).getNotes());
-
+                intent.putExtra("ID", insertData);
+                toastMessage(insertData);
                 context.startActivity(intent);
             }
         });
@@ -87,7 +94,7 @@ public class MeetingActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) recyclerView);
     }
 
-    @Override
+   /* @Override
     public void onResume()
     {  // After a pause OR at startup
         super.onResume();
@@ -95,7 +102,7 @@ public class MeetingActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.meeting_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
-    }
+    }*/
 
 
     public void setMeetingsName(int index, String s){
@@ -106,6 +113,10 @@ public class MeetingActivity extends AppCompatActivity {
     }
     public void setMeetingsNotes(int index, String s){
         Meetings.get(index).setNotes(s);
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -153,7 +164,7 @@ public class MeetingActivity extends AppCompatActivity {
                     intent.putExtra("NAME", holder.mItem.getName());
                     intent.putExtra("DESCRIPTION", holder.mItem.getDescription());
                     intent.putExtra("NOTES", holder.mItem.getNotes());
-
+                    intent.putExtra("ID", holder.mItem.getID());
                     context.startActivity(intent);
                     //startActivity(new Intent(MeetingActivity.this, MeetingDetailActivity.class));
                 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AttendanceApp</string>
+    <string name="app_name">Snappy Attendance App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Snappy Attendance App</string>
@@ -8,9 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="default_meetingDetailString">MeetingDetailString</string>
     <string name="title_activity_media">MediaActivity</string>
-    <string name="title_activity_real_lesson">realLessonActivity</string>
+    <string name="title_activity_real_lesson">Lessons</string>
 
-    <string name="title_activity_doggo_fullscreen">DoggoFullscreenActivity</string>
+    <string name="title_activity_doggo_fullscreen">Video</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_schedule">Schedule</string>
